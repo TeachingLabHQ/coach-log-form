@@ -43,46 +43,5 @@ function updateCoachNameQuestion() {
   coachDropdown.setChoiceValues(coachNameIds);
 }
 
-function updateDistrictSchoolQuestions() {
-  //get latest district sites
-  const schoolsByDistrict = getSchoolsByDistrict();
-  let latestDistrictSchoolOptions = [];
-  for (const district in schoolsByDistrict) {
-    const schoolsByDistrictSet = new Set(schoolsByDistrict[district]);
-    const uniqueSchoolByDistrictList = [...schoolsByDistrictSet];
-    for (const school of uniqueSchoolByDistrictList) {
-      const districtSchoolOption = `${district}-${school}`;
-      latestDistrictSchoolOptions.push(districtSchoolOption);
-    }
-  }
-  //get current project site options from the dropdown
-  const items = form.getItems();
-  let currDistrictSchoolQuestion;
-  for (const item of items) {
-    if (
-      item
-        .getTitle()
-        .toString()
-        .indexOf(
-          "Please select the project and the site that you are working on",
-        ) != -1
-    ) {
-      currDistrictSchoolQuestion = item.asListItem();
-      break;
-    }
-  }
-  const currDistrictSchoolChoices = currDistrictSchoolQuestion
-    .getChoices()
-    .map((c) => c.getValue());
-  const needUpdate = !(
-    currDistrictSchoolChoices.length === latestDistrictSchoolOptions.length &&
-    currDistrictSchoolChoices.every((c, idx) => {
-      return c === latestDistrictSchoolOptions[idx];
-    })
-  );
-  if (needUpdate) {
-    currDistrictSchoolQuestion.setChoiceValues(latestDistrictSchoolOptions);
-  }
-}
 
 

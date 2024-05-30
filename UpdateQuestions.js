@@ -1,6 +1,6 @@
 function updateTeacherQuestions() {
   var items = form.getItems();
-  var newTeacherInfo = getteachersBySites();
+  var newTeacherInfo = getTeachersBySchool();
   var teacherQuestions = [];
   for (var i = 0; i < items.length; i++) {
     if (items[i].getTitle().toString().indexOf("Select a teacher from") != -1) {
